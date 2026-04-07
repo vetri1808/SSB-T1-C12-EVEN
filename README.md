@@ -31,8 +31,74 @@ PROCEDURE:
 6.Verify the generated results
 
 PROGRAM:
+```
+clc;
+clear;
+
+// Parameters
+Ac = 17.5;
+Am = 35;
+fm = 626;
+fc = 6260;
+fs = 62600;
+
+// Time axis (short window)
+t = 0:1/fs:0.05;
+
+// SSB signals
+LSB = Am*cos(2*%pi*(fc-fm)*t);
+USB = Am*cos(2*%pi*(fc+fm)*t);
+
+// Plot LSB
+subplot(4,1,1)
+plot(t,LSB)
+title("SSB Modulated Signal (LSB)")
+xlabel("time")
+ylabel("Amplitude")
+
+// Plot USB
+subplot(4,1,2)
+plot(t,USB)
+title("SSB Modulated Signal (USB)")
+xlabel("time")
+ylabel("Amplitude")
+
+// Spectrum
+N = length(t);
+f = (-N/2:N/2-1)*(fs/N);
+
+LSB_spec = abs(fftshift(fft(LSB)));
+USB_spec = abs(fftshift(fft(USB)));
+
+// LSB Spectrum
+subplot(4,1,3)
+plot(f,LSB_spec)
+title("SSB Signal Spectrum (LSB)")
+xlabel("Frequency")
+ylabel("Magnitude")
+
+// USB Spectrum
+subplot(4,1,4)
+plot(f,USB_spec)
+title("SSB Signal Spectrum (USB)")
+xlabel("Frequency")
+ylabel("Magnitude")
+
+xgrid();
+
+```
 
 OUTPUT GRAPH:
+<img width="2878" height="1482" alt="EXP3" src="https://github.com/user-attachments/assets/26768279-719e-48c7-8c60-25feed5e7059" />
+
+TABULATION:
+![WhatsApp Image 2026-04-07 at 11 43 28 AM](https://github.com/user-attachments/assets/041b7eeb-7be6-4df7-bf28-a7d925852b1c)
+
+
+
 
 RESULT:
+![WhatsApp Image 2026-04-07 at 11 43 47 AM](https://github.com/user-attachments/assets/1dc2a0b5-9f19-4567-86b3-c64101eb15df)
+
+
 
